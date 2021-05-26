@@ -12,6 +12,10 @@ public class CreateIntArray {
 
         Printer.print("please input the desired length of the Array");
         arrayLength=scan.scanInt();
+        while(arrayLength<1) {
+            Printer.print("please input a number greater than 0");
+            arrayLength = scan.scanInt();
+        }
 
         while (arrayLength<2) {
             Printer.print("please input a number larger than 1");
