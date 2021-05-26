@@ -71,9 +71,7 @@ public class MergeSort implements Sorter {
             else
             {
                 mergedArray[mergedArrayIndex++] = secondArray[secondArrayIndex++];
-
             }
-
 
         }
 

@@ -18,7 +18,7 @@ public class Starter {
         MergeSort mergeSort = new MergeSort();
         returnTestArrayBubble = bubbleSort.sortArray(intArray);
         System.out.println(Arrays.toString(returnTestArrayBubble));
-       // returnTestArrayMerge = mergeSort.sortArray(testArray);
+       // returnTestArrayMerge = mergeSort.sortArray(intArray);
      //   System.out.println(Arrays.toString(returnTestArrayMerge));
 
 
