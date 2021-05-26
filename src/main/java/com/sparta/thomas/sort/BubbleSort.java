@@ -6,6 +6,11 @@ public class BubbleSort implements Sorter {
     int tempSortNumber;
     @Override
     public int[] sortArray (int[] arrayToSort){
+        if (arrayToSort.length<2)
+        {
+            return arrayToSort;
+        }
+
 
         for (int j = arrayToSort.length; j>=0; j--)
         {

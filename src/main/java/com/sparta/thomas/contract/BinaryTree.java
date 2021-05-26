@@ -7,9 +7,9 @@ public interface BinaryTree {
     int getRootElement();
 
     int getNumberOfElements();
-
+// returning int for testing
     void addElement(int element);
-
+// returns an array for testing
     void addElements(int[] elements);
 
     boolean findElement(int value);
