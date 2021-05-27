@@ -1,4 +1,4 @@
-package com.sparta.thomas;
+package com.sparta.thomas.util;
 import com.sparta.thomas.util.Scan;
 import com.sparta.thomas.util.Printer;
 

@@ -13,6 +13,8 @@ public class BinaryTreeSort implements BinaryTree {
     Node root = new Node();
     boolean rootInitialised = false;
     int numberOfElements = 0;
+    private static int[] sortedArray;
+    private static int sortedArrayIndex=0;
 
     public BinaryTreeSort (int rootElement){
         root.element = rootElement;
@@ -119,39 +121,91 @@ public class BinaryTreeSort implements BinaryTree {
     @Override
     public int getLeftChild(int element) throws ChildNotFoundException {
         Node node = root;
-        if (element == node.element && node.leftBranch != null){
-            return node.leftBranch.element;
-        }
-        if (element == node.element && node.leftBranch == null){
-           throw new ChildNotFoundException();
+        while (true) {
+
+            if (element == node.element && node.leftBranch != null) {
+                return node.leftBranch.element;
+            }
+            if (element == node.element && node.leftBranch == null) {
+                throw new ChildNotFoundException();
+            }
+
+            if (element > node.element && node.rightBranch != null) {
+                node = node.rightBranch;
+            }
+            if (element < node.element && node.leftBranch != null) {
+                node = node.leftBranch;
+            }
         }
 
-        if (element > node.element && node.rightBranch != null)
-        {
-            node = node.rightBranch;
-        }
-        if (element < node.element && node.leftBranch != null)
-        {
-            node = node.leftBranch;
-        }
 
 
-        return 0;
     }
 
     @Override
     public int getRightChild(int element) throws ChildNotFoundException {
-        return 0;
+        Node node = root;
+        while(true) {
+            if (element == node.element && node.rightBranch != null) {
+                return node.rightBranch.element;
+            }
+            if (element == node.element && node.rightBranch == null) {
+                throw new ChildNotFoundException();
+            }
+
+            if (element > node.element && node.rightBranch != null) {
+                node = node.rightBranch;
+            }
+            if (element < node.element && node.leftBranch != null) {
+                node = node.leftBranch;
+            }
+        }
+
     }
 
     @Override
     public int[] getSortedTreeAsc() {
-        return new int[0];
+        // check left tree if true go left if false print parent, then if right go right repeat
+        this.sortedArray=new int[numberOfElements];
+        this.sortedArrayIndex=0;
+
+        ascRecursion(root);
+        return this.sortedArray;
+    }
+
+    private void ascRecursion(Node node){
+        if (node.leftBranch != null)
+        {
+            ascRecursion(node.leftBranch);
+        }
+        sortedArray[sortedArrayIndex++] = node.element;
+        if (node.rightBranch!=null)
+        {
+            ascRecursion(node.rightBranch);
+        }
+
     }
 
     @Override
     public int[] getSortedTreeDesc() {
-        return new int[0];
+        this.sortedArray=new int[numberOfElements];
+        this.sortedArrayIndex=0;
+
+        descRecursion(root);
+        return this.sortedArray;
+    }
+
+    private void descRecursion(Node node){
+        if (node.rightBranch != null)
+        {
+            descRecursion(node.rightBranch);
+        }
+        sortedArray[sortedArrayIndex++] = node.element;
+        if (node.leftBranch!=null)
+        {
+            descRecursion(node.leftBranch);
+        }
+
     }
 
 
