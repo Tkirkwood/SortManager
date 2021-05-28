@@ -1,8 +1,11 @@
 package com.sparta.thomas.sort;
 import com.sparta.thomas.Exceptions.ChildNotFoundException;
 import com.sparta.thomas.contract.BinaryTree;
+import com.sparta.thomas.contract.Sorter;
 
-public class BinaryTreeSort implements BinaryTree {
+public class BinaryTreeSort implements BinaryTree, Sorter {
+
+
 
     class Node {
         int element;
@@ -15,6 +18,7 @@ public class BinaryTreeSort implements BinaryTree {
     int numberOfElements = 0;
     private static int[] sortedArray;
     private static int sortedArrayIndex=0;
+    private static String sortType;
 
     public BinaryTreeSort (int rootElement){
         root.element = rootElement;
@@ -22,6 +26,22 @@ public class BinaryTreeSort implements BinaryTree {
         numberOfElements++;
     }
     public BinaryTreeSort(){};
+    public BinaryTreeSort(String sortType){
+        this.sortType = sortType;
+    };
+
+    @Override
+    public int[] sortArray(int[] arrayToSort) {
+        addElements(arrayToSort);
+        switch (sortType) {
+            case "Asc":
+                return getSortedTreeAsc();
+            case "Desc":
+                return getSortedTreeDesc();
+        }
+
+        return null;
+    }
 
     @Override
     public int getRootElement() {
@@ -39,6 +59,8 @@ public class BinaryTreeSort implements BinaryTree {
         if (!rootInitialised)
         {
             root.element = element;
+            rootInitialised=true;
+            numberOfElements++;
         }
         Node node = root;
 
@@ -127,7 +149,7 @@ public class BinaryTreeSort implements BinaryTree {
                 return node.leftBranch.element;
             }
             if (element == node.element && node.leftBranch == null) {
-                throw new ChildNotFoundException();
+                throw new ChildNotFoundException("Child node not found for element: " + node.element);
             }
 
             if (element > node.element && node.rightBranch != null) {
@@ -150,7 +172,7 @@ public class BinaryTreeSort implements BinaryTree {
                 return node.rightBranch.element;
             }
             if (element == node.element && node.rightBranch == null) {
-                throw new ChildNotFoundException();
+                throw new ChildNotFoundException("Child node not found for element: " + node.element);
             }
 
             if (element > node.element && node.rightBranch != null) {

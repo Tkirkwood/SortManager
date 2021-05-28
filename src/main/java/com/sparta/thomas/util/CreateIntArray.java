@@ -1,17 +1,22 @@
 package com.sparta.thomas.util;
+import com.sparta.thomas.Exceptions.ArrayLengthOfZeroException;
 import com.sparta.thomas.util.Scan;
 import com.sparta.thomas.util.Printer;
 
 
 public class CreateIntArray {
 
-    public static int[] createIntArray()
+    public static int[] createIntArray() throws ArrayLengthOfZeroException
     {
         Scan scan = new Scan();
         int arrayLength=0;
 
         Printer.print("please input the desired length of the Array");
         arrayLength=scan.scanInt();
+        if (arrayLength==0)
+        {
+            throw new ArrayLengthOfZeroException("array must have a length greater than 0");
+        }
         while(arrayLength<1) {
             Printer.print("please input a number greater than 0");
             arrayLength = scan.scanInt();

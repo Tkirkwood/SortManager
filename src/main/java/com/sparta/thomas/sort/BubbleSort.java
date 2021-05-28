@@ -1,16 +1,17 @@
 package com.sparta.thomas.sort;
 
+import com.sparta.thomas.Exceptions.ArrayLengthOfZeroException;
 import com.sparta.thomas.contract.Sorter;
 
-public class BubbleSort implements Sorter {
+public class BubbleSort  implements Sorter  {
     int tempSortNumber;
     @Override
-    public int[] sortArray (int[] arrayToSort){
+    public int[] sortArray (int[] arrayToSort) {
+
         if (arrayToSort.length<2)
         {
             return arrayToSort;
         }
-
 
         for (int j = arrayToSort.length; j>=0; j--)
         {

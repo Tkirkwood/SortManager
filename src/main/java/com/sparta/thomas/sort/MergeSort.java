@@ -15,7 +15,6 @@ public class MergeSort implements Sorter {
             return arrayToSort;
         }
 
-
          int arrayLength = arrayToSort.length,
                  arrayLength2;
 

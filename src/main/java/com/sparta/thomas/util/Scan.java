@@ -13,4 +13,9 @@ Scanner scanner = new Scanner(System.in);
         }
         return scanner.nextInt();
     }
+
+    public String scanString()
+    {
+        return scanner.nextLine();
+    }
 }
