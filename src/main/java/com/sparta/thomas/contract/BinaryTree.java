@@ -1,7 +1,7 @@
 package com.sparta.thomas.contract;
 
 
-import com.sparta.thomas.Exceptions.ChildNotFoundException;
+import com.sparta.thomas.exceptions.ChildNotFoundException;
 
 public interface BinaryTree {
     int getRootElement();

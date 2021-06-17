@@ -1,18 +1,30 @@
 package com.sparta.thomas.sort;
 
 import com.sparta.thomas.contract.Sorter;
+import com.sparta.thomas.util.Printer;
 
-import java.sql.SQLOutput;
-import java.util.Arrays;
 
 public class MergeSort implements Sorter {
-
+boolean sortedAlready = true;
     @Override
     public int[] sortArray (int[] arrayToSort)
     {
         if (arrayToSort.length<2)
         {
             return arrayToSort;
+        }
+        for (int i=0;i<arrayToSort.length-1;i++)
+        {
+            if (arrayToSort[i]>arrayToSort[i+1])
+            {
+                sortedAlready=false;
+                break;
+            }
+        }
+
+        if (sortedAlready) {
+        Printer.print("Array was already sorted merge");
+        return arrayToSort;
         }
 
          int arrayLength = arrayToSort.length,

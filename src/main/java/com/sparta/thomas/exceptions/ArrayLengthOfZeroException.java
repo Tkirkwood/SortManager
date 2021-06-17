@@ -1,4 +1,4 @@
-package com.sparta.thomas.Exceptions;
+package com.sparta.thomas.exceptions;
 
 public class ArrayLengthOfZeroException extends Exception {
     public ArrayLengthOfZeroException(String s){

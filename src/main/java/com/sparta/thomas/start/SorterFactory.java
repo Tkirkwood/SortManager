@@ -1,5 +1,6 @@
 package com.sparta.thomas.start;
 
+import com.sparta.thomas.exceptions.UnknownSortType;
 import com.sparta.thomas.contract.Sorter;
 import com.sparta.thomas.sort.BinaryTreeSort;
 import com.sparta.thomas.sort.BubbleSort;
@@ -9,31 +10,31 @@ import com.sparta.thomas.util.*;
 public class SorterFactory {
 
 
-    public Sorter getSorter(SortTypes sortType) {
+    public Sorter getSorter(SortTypes sortType) throws UnknownSortType {
 
     Sorter sorter;
         switch (sortType) {
             case BubbleSort:
                 sorter = new BubbleSort();
-                System.out.println("bubblesort");
+                Printer.print("\nchosen sorter type is now Bubble sort");
                 break;
 
             case MergeSort:
                 sorter = new MergeSort();
-                System.out.println("merge sort");
+                Printer.print("\nchosen sorter type is now Merge sort");
                 break;
             case BinaryTreeAsc:
                 sorter = new BinaryTreeSort("Asc");
-                System.out.println("binary tree asc");
+                Printer.print("\nchosen sorter type is now Binary tree with ascending order sorting");
                 break;
             case BinaryTreeDesc:
                 sorter = new BinaryTreeSort("Desc");
-                System.out.println("binary tree desc");
+                Printer.print("\nchosen sorter type is now Binary tree with Descending order sorting");
                 break;
             default:
                 sorter=null;
-                System.out.println("null");
-                break;
+                throw new UnknownSortType("Sort Type is not recognised");
+
         }
         return sorter;
     }

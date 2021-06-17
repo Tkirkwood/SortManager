@@ -1,8 +1,11 @@
 package com.sparta.thomas.start;
 
 
-import com.sparta.thomas.Exceptions.ArrayLengthOfZeroException;
+
+import com.sparta.thomas.exceptions.MissingEnumType;
+import com.sparta.thomas.exceptions.UnknownSortType;
 import com.sparta.thomas.contract.Sorter;
+
 import com.sparta.thomas.util.*;
 
 import java.util.Arrays;
@@ -12,33 +15,39 @@ public class Starter {
 
     public void start() {
         int[] intArray = new int[0];
-       // int[] testArray = {78,96,5,23,448,23,476,346,23,64,7,6,9,15,14,7,6,78,96};
-        int[] testArray = new int[0];
-       // int[] returnTestArrayBubble, returnTestArrayMerge,input = {2,10,6,90,9,11,12,14,18,20};
-        Scan scan = new Scan();
-        int tempSortType;
-        SortTypes sortType = null;
-
         SorterFactory sorterFactory = new SorterFactory();
-        Printer.print("please input either 1 for BubbleSort, 2 for MergeSort,3 for BinaryTreeAsc or 4 for BinaryTreeDesc for the desired sorter");
-        tempSortType=scan.scanInt();
-        while(tempSortType <1 || tempSortType>4){
-            Printer.print("please input a valid sorter type");
-            tempSortType=scan.scanInt();
-        }
-        for (SortTypes tempSortTypes: SortTypes.values()) {
-            if (tempSortTypes.ordinal() == tempSortType-1) {
-                sortType = tempSortTypes;
-            }
-        }
-        Printer.print("please follow the instructions to begin imputing your array");
-        try { intArray = CreateIntArray.createIntArray();}
-        catch (ArrayLengthOfZeroException e) {
+        SortTypes sortType = null;
+        Sorter sorter=null;
+
+        try {
+            sortType = GetSorterType.getSorterType(); }
+        catch (MissingEnumType e){
             LoggerClass.logger.error(e.getMessage());
         }
-        Printer.print(Arrays.toString(intArray));
-        Sorter sorter = sorterFactory.getSorter(sortType);
+        catch (Exception e){
+            LoggerClass.logger.error(e.getMessage());
+        }
+
+       try{ sorter = sorterFactory.getSorter(sortType);}
+       catch (UnknownSortType e) {
+           LoggerClass.logger.error(e.getMessage());
+       }
+       catch (Exception e)
+       {
+           LoggerClass.logger.error(e.getMessage());
+       }
+        Printer.print("\nplease follow the instructions to begin imputing your array \n");
+        intArray=CreateIntArray.selectIntCreationMethod();
+        Printer.print("\n\n\n ---------------------------------------------------------------");
+        Printer.print("The array you have entered is,");
+        Printer.print(Arrays.toString(intArray)+"\n");
+        Printer.print("The Sorter you have chosen is : " + sortType+ "\n");
+        Printer.print("The sorted array is, ");
+       long start = System.nanoTime();
         Printer.print(Arrays.toString(sorter.sortArray(intArray)));
+       long end = System.nanoTime();
+       double timetaken = (double) (end-start)/1000000;
+       Printer.print("Time taken to sort the array is : " + timetaken +" mS");
 
 
 

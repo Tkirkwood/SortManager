@@ -1,7 +1,8 @@
 package com.sparta.thomas.sort;
-import com.sparta.thomas.Exceptions.ChildNotFoundException;
+import com.sparta.thomas.exceptions.ChildNotFoundException;
 import com.sparta.thomas.contract.BinaryTree;
 import com.sparta.thomas.contract.Sorter;
+import com.sparta.thomas.util.Printer;
 
 public class BinaryTreeSort implements BinaryTree, Sorter {
 
@@ -32,6 +33,19 @@ public class BinaryTreeSort implements BinaryTree, Sorter {
 
     @Override
     public int[] sortArray(int[] arrayToSort) {
+        boolean sortedAlready = true;
+        for (int i=0;i<arrayToSort.length-1;i++)
+        {
+            if (arrayToSort[i]>arrayToSort[i+1])
+            {
+                sortedAlready=false;
+            }
+        }
+
+        if (sortedAlready) {
+            Printer.print("Array was already sorted tree");
+            return arrayToSort;
+        }
         addElements(arrayToSort);
         switch (sortType) {
             case "Asc":
@@ -130,10 +144,11 @@ public class BinaryTreeSort implements BinaryTree, Sorter {
           if (value > node.element && node.rightBranch != null)
           {
               node = node.rightBranch;
-          }
+          }else {
           if (value < node.element && node.leftBranch != null)
           {
               node = node.leftBranch;
+          }
           }
       }
 
@@ -143,6 +158,11 @@ public class BinaryTreeSort implements BinaryTree, Sorter {
     @Override
     public int getLeftChild(int element) throws ChildNotFoundException {
         Node node = root;
+        if (!findElement(element))
+        {
+            throw new ChildNotFoundException("element does not exist in current tree");
+        }
+
         while (true) {
 
             if (element == node.element && node.leftBranch != null) {
@@ -158,6 +178,7 @@ public class BinaryTreeSort implements BinaryTree, Sorter {
             if (element < node.element && node.leftBranch != null) {
                 node = node.leftBranch;
             }
+
         }
 
 
@@ -187,23 +208,22 @@ public class BinaryTreeSort implements BinaryTree, Sorter {
 
     @Override
     public int[] getSortedTreeAsc() {
-        // check left tree if true go left if false print parent, then if right go right repeat
         this.sortedArray=new int[numberOfElements];
         this.sortedArrayIndex=0;
 
-        ascRecursion(root);
+        sortingInAscOrder(root);
         return this.sortedArray;
     }
 
-    private void ascRecursion(Node node){
+    private void sortingInAscOrder(Node node){
         if (node.leftBranch != null)
         {
-            ascRecursion(node.leftBranch);
+            sortingInAscOrder(node.leftBranch);
         }
         sortedArray[sortedArrayIndex++] = node.element;
         if (node.rightBranch!=null)
         {
-            ascRecursion(node.rightBranch);
+            sortingInAscOrder(node.rightBranch);
         }
 
     }

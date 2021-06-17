@@ -1,10 +1,12 @@
 package com.sparta.thomas.sort;
 
-import com.sparta.thomas.Exceptions.ArrayLengthOfZeroException;
-import com.sparta.thomas.contract.Sorter;
 
-public class BubbleSort  implements Sorter  {
+import com.sparta.thomas.contract.Sorter;
+import com.sparta.thomas.util.Printer;
+
+public class BubbleSort<T extends Comparable>  implements Sorter  {
     int tempSortNumber;
+    boolean arraySortedEarly = false;
     @Override
     public int[] sortArray (int[] arrayToSort) {
 
@@ -15,21 +17,59 @@ public class BubbleSort  implements Sorter  {
 
         for (int j = arrayToSort.length; j>=0; j--)
         {
+            arraySortedEarly=true;
             for (int i = 0; i < j; i++) {
                 if (i+1 != j)
-                    if (arrayToSort[i] >= arrayToSort[i + 1]) {
+                    if (arrayToSort[i] > arrayToSort[i + 1]) {
                         tempSortNumber = arrayToSort[i + 1];
                         arrayToSort[i+1]=arrayToSort[i];
                         arrayToSort[i] = tempSortNumber;
+                        arraySortedEarly = false;
 
                     }
             }
+            if(arraySortedEarly && j == arrayToSort.length)
+            {
+                Printer.print("Array was already sorted bubble");
+                return arrayToSort;
+            }
+            if (arraySortedEarly) {
+                return arrayToSort;
+            }
+
 
         }
 
         return arrayToSort;
     }
 
+
+
+
+
+        public T[] bubbleSortGeneric(T[] arrayToSort) {
+            T tempSort;
+            if (arrayToSort.length < 2) {
+                return arrayToSort;
+            }
+
+
+            for (int j = arrayToSort.length; j >= 0; j--) {
+                for (int i = 0; i < j; i++) {
+                    if (i + 1 != j)
+                        if (arrayToSort[i].compareTo(arrayToSort[i + 1]) >= 0) {
+                            tempSort = arrayToSort[i + 1];
+                            arrayToSort[i + 1] = arrayToSort[i];
+                            arrayToSort[i] = tempSort;
+
+                        }
+                }
+
+            }
+
+            return arrayToSort;
+        }
+    }
     /*public static void sortBubble ()
     {
         int tempSortNumber;
@@ -72,4 +112,4 @@ public class BubbleSort  implements Sorter  {
         //use list.clear() to wipe list after use
     }
     */
-}
+
